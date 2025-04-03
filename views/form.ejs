@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <title>Lägg till kurs</title>
 </head>
+
 <body>
     <h1>Lägg till kurs</h1>
-    <form action="">
-
+    <form method="post" action="/">
+        <label for="coursecode">Kurskod</label>
+        <input type="text" name="coursecode" id="coursecode">
+        <label for="coursename">Kursnamn</label>
+        <input type="text" name="coursename" id="coursename">
+        <label for="syllabus">Kursplan</label>
+        <input type="text" name="syllabus" id="syllabus">
+        <label for="progression">Progression</label>
+        <input type="text" name="progression" id="progression">
+        <input type="submit" value="Lägg till">
     </form>
 </body>
+
 </html>

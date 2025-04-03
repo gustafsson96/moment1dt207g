@@ -30,3 +30,5 @@ connection.query(`
         course_added DATETIME DEFAULT CURRENT_TIMESTAMP
     )
     `);
+
+    module.exports = connection;
