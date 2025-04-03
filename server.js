@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.get('/form', (req, res) => {
+    res.render('form', {name: "Julia"});
+});
+
 app.get('/about', (req, res) => {
     res.render('about', {name: "Julia"});
 });
