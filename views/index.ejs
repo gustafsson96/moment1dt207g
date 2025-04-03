@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <title>Startsida</title>
 </head>
+
 <body>
     <h1>Hem</h1>
     <ul>
         <li><a href="/">Hem</a></li>
         <li><a href="/about">Om mig</a></li>
     </ul>
+
+    <section>
+        <% if (courses.length> 0) { %>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Kurskod</th>
+                        <th>Kursnamn</th>
+                        <th>Syllabus</th>
+                        <th>Progression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% courses.forEach(course=> { %>
+                        <tr>
+                            <td>
+                                <%= course.course_code %>
+                            </td>
+                            <td>
+                                <%= course.course_name %>
+                            </td>
+                            <td>
+                                <%= course.course_syllabus %>
+                            </td>
+                            <td>
+                                <%= course.course_progression %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <p>Inga kurser att visa.</p>
+                <% } %>
+    </section>
 </body>
+
 </html>

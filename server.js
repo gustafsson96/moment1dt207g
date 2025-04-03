@@ -8,7 +8,15 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.render('index');
+    const sql = "SELECT * FROM courses";
+
+    connection.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Något gick fel vid inhämtning av kurser");
+        }
+        res.render('index', { courses: results });
+    });
 });
 
 app.get('/form', (req, res) => {
