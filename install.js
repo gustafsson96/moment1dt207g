@@ -1,7 +1,7 @@
 const { Client } = require("pg");
 require("dotenv").config();
 
-const connection = new Client({
+const client = new Client({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USERNAME,
@@ -13,7 +13,7 @@ const connection = new Client({
 });
 
 
-connection.connect((err) => {
+client.connect((err) => {
     if (err) {
         console.log ("Fel vid anslutning: " + err);
     } else {
@@ -22,7 +22,7 @@ connection.connect((err) => {
 });
 
 //Create table
-connection.query(`
+client.query(`
     CREATE TABLE IF NOT EXISTS courses (
         id SERIAL PRIMARY KEY,
         course_code VARCHAR(20) NOT NULL UNIQUE,

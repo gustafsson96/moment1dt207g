@@ -22,6 +22,7 @@
                         <th>Kursnamn</th>
                         <th>Syllabus</th>
                         <th>Progression</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,12 @@
                             <td>
                                 <%= course.course_progression %>
                             </td>
+                            <td>
+                                <form action="/delete" method="POST">
+                                    <input type="hidden" name="course_code" value="<%= course.course_code %>">
+                                    <button type="submit">Ta bort</button>
+                                </form>
+                            </td>   
                         </tr>
                         <% }); %>
                 </tbody>
