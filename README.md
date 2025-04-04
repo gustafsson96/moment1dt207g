@@ -31,11 +31,11 @@ and that the course code is unique before saving to the database. If not, a feed
 ### .env
 The structure for the enviroment variables is:
 
-PORT=desired-port-number
-DB_HOST=your-database-host
-DB_PORT=your-database-port
-DB_USERNAME=your-database-username
-DB_PASSWORD=your-database-password
+PORT=desired-port-number<br>
+DB_HOST=your-database-host<br>
+DB_PORT=your-database-port<br>
+DB_USERNAME=your-database-username<br>
+DB_PASSWORD=your-database-password<br>
 DB_DATABASE=your-database-name
 
 ### Routes
