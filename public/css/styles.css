@@ -20,14 +20,14 @@ h2 {
 
 .navbar-container {
     background-color: #8E4585;
-    padding: 1rem 2rem;
+    padding: 1em 2em;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
     display: flex;
     justify-content: start;
-    gap: 2rem;
+    gap: 2em;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -37,8 +37,8 @@ h2 {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
+    font-size: 1.1em;
+    padding: 0.5rem 1em;
     border-radius: 6px;
     transition: background-color 0.3s ease;
 }
@@ -65,7 +65,7 @@ thead {
 th,
 td {
     text-align: left;
-    padding: 1rem;
+    padding: 1em;
     border-bottom: 1px solid #ddd;
 }
 
@@ -86,11 +86,11 @@ td a:hover {
 button.delete-btn {
     background-color: #e74c3c;
     color: white;
-    padding: 0.3rem 0.6rem;
+    padding: 0.3em 0.6em;
     border: none;
     border-radius: 6px;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1em;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -105,7 +105,7 @@ button.delete-btn:hover {
 .add-course-form {
     width: 40%;
     margin: 0 auto;
-    padding: 1.5rem;
+    padding: 1.5em;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
@@ -115,8 +115,8 @@ form input,
 form select {
     display: block;
     width: 100%;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
+    margin-bottom: 1em;
+    padding: 0.5em;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -152,7 +152,7 @@ form select {
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
 }
 
 .about-container h2 {
@@ -178,7 +178,7 @@ form select {
 
     .navbar a {
         font-size: 0.8em;
-        padding: 0.2rem 1rem;
+        padding: 0.2em 1em;
     }
 
     table {
@@ -192,7 +192,7 @@ form select {
 
     button.delete-btn {
         padding: 0.3em 0.6em;
-        font-size: 0.7rem;
+        font-size: 0.7em;
     }
 
     .add-course-form {
