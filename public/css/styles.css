@@ -2,3 +2,21 @@ body {
     margin: 0 auto;
     background-color: aquamarine;
 }
+
+/* navbar styling */
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+}
+
+.navbar {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar li {
+    margin-right: 1em;
+}
