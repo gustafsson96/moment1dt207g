@@ -32,5 +32,3 @@ connection.query(`
         course_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     `);
-
-    module.exports = connection;
