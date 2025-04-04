@@ -30,7 +30,7 @@ const client = new Client({
 // Establish database connection
 client.connect((err) => {
     if (err) {
-        console.log("Fel vid anslutning" + err);
+        console.log("Fel vid anslutning. Kontrollera databaskonfigurationen.");
     } else {
         console.log("Ansluten till databasen...")
     }
@@ -77,7 +77,7 @@ app.post("/", async (req, res) => {
             return res.render("form", {
                 message: {
                     type: "error",
-                    text: "Den här kurskoden finns redan. Vänligen välj en unik."
+                    text: "Den här kurskoden finns redan. Vänligen välj en unik kod."
                 }
             });
         }
@@ -109,7 +109,6 @@ app.post("/", async (req, res) => {
 // Delete a course based on course id
 app.get("/delete/:id", (req, res) => {
     const courseId = req.params.id;
-    console.log(`Course to delete: ${courseId}`);  // Log the ID to ensure it's being passed correctly
 
     // Query to delete course from database by its ID
     client.query("DELETE FROM courses WHERE id = $1", [courseId], (err) => {
