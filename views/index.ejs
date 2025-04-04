@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Startsida</title>
+    <title>Sparade kurser</title>
 </head>
 
 <body>
     <%- include("partials/nav") %>
-    <h1>Hem</h1>
-
+    <h1>Sparade kurser</h1>
     <% if (courses.length === 0) { %>
         <p>Inga kurser hittades.</p>
     <% } else { %>
+        <!-- Table to display courses -->
         <table>
             <thead>
                 <tr>
@@ -36,7 +36,7 @@
                         </td>
                         <td>
                             <form action="/delete/<%= course.id %>" onsubmit="return confirm('Är du säker på att du vill ta bort denna kurs?')">
-                                <button type="submit">Ta bort</button>
+                                <button type="submit" class="delete-btn">Ta bort</button>
                             </form>
                         </td>
                     </tr>

@@ -10,16 +10,52 @@
 
 <body>
     <%- include("partials/nav") %>
-    <h1>Om sidan</h1>
-    <section>
-        <h2>Webbplatsens syfte</h2>
-    </section>
-    <section>
-        <h2>Databas-server</h2>
-    </section>
-    <section>
-        <h2>Slutsatser</h2>
-    </section>
+        <div class="about-container">
+            <h1>Om sidan</h1>
+            <section>
+                <h2>Webbplats och syfte</h2>
+                <p>
+                    Denna webbplats utgör mitt arbete för moment 1 i kursen Backend-baserad webbutveckling (DT207G) hos
+                    Mittuniversitetet. Uppgiften syftar till att skapa en förståelse för serverbaserad webbutveckling
+                    och hur man ansluter en relationsbaserad databasserver och presenterar data från en databas med
+                    hjälp av NodeJs och Express. Uppgiften inkluderar även arbete med en så kallade ”view engine” för
+                    HTML kod som i detta fall genererats med EJS.
+                    <br><br>
+                    Webbplatsen möjliggör även att användaren lägger till och/eller raderar data från databasen via ett
+                    formulär och den presenterade datan. Detta har implementerats med hjälp av enklare SQL-kommandon som
+                    SELECT, INSERT och DELETE i JavaScript-filerna.
+                </p>
+            </section>
+            <section>
+                <h2>Databas-server</h2>
+                <p>
+                    För att skapa databasen för denna uppgift använde jag inledningsvis MySQL, främst eftersom jag var
+                    bekant med denna sedan tidigare kurs. Efter att jag stötte på lite problem vid publicering valde jag
+                    dock att byta till Postgres eftersom det kändes som ett bra tillfälle att utforska ytterligare
+                    DBMSer, och för detta arbete har jag använt Render och pgAdmin. Jag var givetvis även tvungen att
+                    justera min install.js och server.js fil i och med detta.
+                </p>
+            </section>
+            <section>
+                <h2>Slutsatser</h2>
+                <p>
+                    Jag har upplevt denna uppgift som lika utmanande som lärorik. Trots bra kursmaterial och filmer som
+                    vägledning har en hel del tid spenderats på felsökning och det var inledningsvis rätt svårt att
+                    förstå ”den stora bilden” och hur allt hänger samman, från databas till lokal utvecklingsmiljö till
+                    publicerad webbplats. Det har dock klarnat en del under vägens gång.
+                    <br><br>
+                    Det största problemet jag stötte på var att jag inte lyckades publicera min MySQL databas (något som
+                    jag nu i efterhand misstänker berodde på något så enkelt som fel port i .env-filen, men jag är inte
+                    säker). Det var dock en rätt bra omväg att ta, eftersom det resulterade i att jag använde Postgres i
+                    stället som jag tidigare inte var bekant med och jag lärde mig därför ännu mer nytt.
+                    <br><br>
+                    En annan positiv grej som denna uppgift var möjligheten att kunna återanvända kod i EJS filerna
+                    genom <% -include %>, något jag inte gjort tidigare men nu använda för min huvudmeny. Väldigt
+                        behändigt!
+
+                </p>
+            </section>
+        </div>
 </body>
 
 </html>

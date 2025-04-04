@@ -10,11 +10,13 @@
 
 <body>
     <%- include("partials/nav") %>
+        <!-- Form to add a new course -->
         <h1>Lägg till kurs</h1>
-        <form method="post" action="/">
-            <form method="post" action="/">
-                <% if (message) { %>
-                    <p class="<%= message.type %>"><%= message.text %></p>
+        <form method="post" action="/" class="add-course-form">
+            <% if (message) { %>
+                <p class="<%= message.type %>">
+                    <%= message.text %>
+                </p>
                 <% } %>
                     <label for="coursecode">Kurskod</label>
                     <input type="text" name="coursecode" id="coursecode">
@@ -28,7 +30,7 @@
                         <option value="B">B</option>
                         <option value="C">C</option>
                     </select>
-                    <input type="submit" value="Lägg till">
+                    <input type="submit" value="Lägg till" class="form-btn">
         </form>
 </body>
 
