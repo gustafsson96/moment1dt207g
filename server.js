@@ -1,78 +1,113 @@
-const express = require('express');
-const { Client } = require('pg');
+const { Client } = require("pg");
+const express = require("express");
+require("dotenv").config();
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true })); // Activate form data
 
-
+// Connect to database
 const client = new Client({
-    user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT || 5432,
+    database: process.env.DB_DATABASE,
     ssl: {
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+    }
 });
 
+client.connect((err) => {
+    if (err) {
+        console.log("Fel vid anslutning" + err);
+    } else {
+        console.log("Ansluten till databasen...")
+    }
+});
 
-client.connect()
-    .then(() => console.log('Connected to the database'))
-    .catch(err => {
-        console.error('Connection error', err.stack);
-        process.exit(1);
+// Routing
+app.get("/", async (req, res) => {
+    client.query("SELECT * FROM courses", (err, result) => {
+        if (err) {
+            console.log("Fel viq query");
+        } else {
+            res.render('index', { courses: result.rows });
+        }
     });
-
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-
-
-app.get('/', (req, res) => {
-    const sql = "SELECT * FROM courses";
-
-    client.query(sql)
-        .then(results => {
-            res.render('index', { courses: results.rows });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send("Något gick fel vid inhämtning av kurser");
-        });
 });
 
-
-app.get('/form', (req, res) => {
-    res.render('form', { name: "Julia" });
+app.get("/form", async (req, res) => {
+    res.render("form", { message: null });
 });
 
-app.get('/about', (req, res) => {
-    res.render('about', { name: "Julia" });
-});
-
-
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
     const { coursecode, coursename, syllabus, progression } = req.body;
 
-    const checkCourseCode = "SELECT * FROM courses WHERE course_code = $1";
-    client.query(checkCourseCode, [coursecode])
-        .then(results => {
-            if (results.rows.length > 0) {
-                return res.render("form", { err: "Den här kurskoden finns redan. Vänligen välj en unik." });
+    // Check for empty strings
+    if (!coursecode?.trim() || !coursename?.trim() || !syllabus?.trim() || !progression?.trim()) {
+        return res.render("form", {
+            message: {
+                type: "error",
+                text: "Alla fält måste fyllas i."
             }
-
-            const insertCourse = "INSERT INTO courses (course_code, course_name, course_syllabus, course_progression) VALUES ($1, $2, $3, $4)";
-            return client.query(insertCourse, [coursecode, coursename, syllabus, progression]);
-        })
-        .then(() => {
-            res.render("form", { success: "Kursen har lagts till!", err: null });
-        })
-        .catch(err => {
-            console.error(err);
-            res.render("form", { err: "Något gick fel vid sparandet av kursen." });
         });
+    }
+
+    try {
+        const checkCourseCode = "SELECT * FROM courses WHERE course_code = $1";
+        const existing = await client.query(checkCourseCode, [coursecode]);
+
+        if (existing.rows.length > 0) {
+            return res.render("form", {
+                message: {
+                    type: "error",
+                    text: "Den här kurskoden finns redan. Vänligen välj en unik."
+                }
+            });
+        }
+
+        const insertCourse = `
+            INSERT INTO courses (course_code, course_name, course_syllabus, course_progression)
+            VALUES ($1, $2, $3, $4)
+        `;
+        await client.query(insertCourse, [coursecode, coursename, syllabus, progression]);
+
+        res.render("form", {
+            message: {
+                type: "success",
+                text: "Kursen har lagts till!"
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.render("form", {
+            message: {
+                type: "error",
+                text: "Något gick fel vid sparandet av kursen."
+            }
+        });
+    }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.get("/delete/:id", (req, res) => {
+    const courseId = req.params.id;
+    console.log(`Course to delete: ${courseId}`);  // Log the ID to ensure it's being passed correctly
+
+    client.query("DELETE FROM courses WHERE id = $1", [courseId], (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        res.redirect("/");
+    });
+});
+
+app.get("/about", async (req, res) => {
+    res.render("about");
+});
+
+// Start server
+app.listen(process.env.PORT, () => {
+    console.log("Servern startad på port: " + process.env.PORT);
 });

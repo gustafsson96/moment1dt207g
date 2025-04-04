@@ -12,48 +12,38 @@
     <%- include("partials/nav") %>
     <h1>Hem</h1>
 
-
-    <section>
-        <% if (courses.length> 0) { %>
-            <table border="1">
-                <thead>
+    <% if (courses.length === 0) { %>
+        <p>Inga kurser hittades.</p>
+    <% } else { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Kurskod</th>
+                    <th>Kursnamn</th>
+                    <th>Progression</th>
+                    <th>Syllabus</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% courses.forEach(course => { %>
                     <tr>
-                        <th>Kurskod</th>
-                        <th>Kursnamn</th>
-                        <th>Syllabus</th>
-                        <th>Progression</th>
-                        <th></th>
+                        <td><%= course.course_code %></td>
+                        <td><%= course.course_name %></td>
+                        <td><%= course.course_progression %></td>
+                        <td>
+                            <a href="<%= course.course_syllabus %>" target="_blank">Visa</a>
+                        </td>
+                        <td>
+                            <form action="/delete/<%= course.id %>" onsubmit="return confirm('Är du säker på att du vill ta bort denna kurs?')">
+                                <button type="submit">Ta bort</button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <% courses.forEach(course=> { %>
-                        <tr>
-                            <td>
-                                <%= course.course_code %>
-                            </td>
-                            <td>
-                                <%= course.course_name %>
-                            </td>
-                            <td>
-                                <%= course.course_syllabus %>
-                            </td>
-                            <td>
-                                <%= course.course_progression %>
-                            </td>
-                            <td>
-                                <form action="/delete" method="POST">
-                                    <input type="hidden" name="course_code" value="<%= course.course_code %>">
-                                    <button type="submit">Ta bort</button>
-                                </form>
-                            </td>   
-                        </tr>
-                        <% }); %>
-                </tbody>
-            </table>
-            <% } else { %>
-                <p>Inga kurser att visa.</p>
-                <% } %>
-    </section>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } %>
 </body>
 
 </html>

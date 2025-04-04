@@ -23,7 +23,6 @@ client.connect((err) => {
 
 // Create course table
 client.query(`
-    DROP TABLE IF EXISTS courses;
     CREATE TABLE courses(
         id SERIAL PRIMARY KEY,
         course_code VARCHAR(20) NOT NULL UNIQUE,
