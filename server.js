@@ -28,29 +28,26 @@ app.get('/about', (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    const courseCode = req.body.coursecode;
-    const courseName = req.body.coursename;
-    const syllabus = req.body.syllabus;
-    const progression = req.body.progression;
+    const { coursecode, coursename, syllabus, progression } = req.body;
 
     const checkCourseCode = "SELECT * FROM courses WHERE course_code =?";
-    connection.query(checkCourseCode, [courseCode], (err, results) => {
+    connection.query(checkCourseCode, [coursecode], (err, results) => {
         if (err) {
             console.error(err);
-            return res.status(500).send("Någon gick fel vid kontroll av kurskod")
+            return res.render("form", { err: "Fel vid kontroll av kurskod." });
         }
         if (results.length > 0) {
-            return res.status(400).send("Den här kurskoden finns redan. Vänligen välj en unik kod.")
+            return res.render("form", { err: "Den här kurskoden finns redan. Vänligen välj en unik." });
         }
 
         const sql = "INSERT INTO courses (course_code, course_name, course_syllabus, course_progression) VALUES (?, ?, ?, ?)";
 
-        connection.query(sql, [courseCode, courseName, syllabus, progression], (err, result) => {
+        connection.query(sql, [coursecode, coursename, syllabus, progression], (err, result) => {
             if (err) {
                 console.error(err);
-                res.status(500).send("Något gick fel");
+                return res.render("form", { err: "Något gick fel vid sparandet av kursen." });
             }
-            res.send("Kursen har lagts till!");
+            res.render("form", { success: "Kursen har lagts till!", err: null });
         });
     });
 });
@@ -58,3 +55,4 @@ app.post("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
