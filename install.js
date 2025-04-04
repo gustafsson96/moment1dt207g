@@ -1,13 +1,15 @@
-const mysql = require("mysql");
+const { Client } = require("pg");
 require("dotenv").config();
 
-const connection = mysql.createConnection({
+const connection = new Client({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    ssl: false
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 
@@ -22,12 +24,12 @@ connection.connect((err) => {
 //Create table
 connection.query(`
     CREATE TABLE IF NOT EXISTS courses (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         course_code VARCHAR(20) NOT NULL UNIQUE,
         course_name VARCHAR(200) NOT NULL,
         course_progression VARCHAR(10) NOT NULL,
         course_syllabus VARCHAR(500),
-        course_added DATETIME DEFAULT CURRENT_TIMESTAMP
+        course_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     `);
 
