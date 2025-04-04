@@ -14,7 +14,7 @@
         <h1>Lägg till kurs</h1>
         <form method="post" action="/" class="add-course-form">
             <% if (message) { %>
-                <p class="<%= message.type %>">
+                <p class="message <%= message.type %>">
                     <%= message.text %>
                 </p>
                 <% } %>
